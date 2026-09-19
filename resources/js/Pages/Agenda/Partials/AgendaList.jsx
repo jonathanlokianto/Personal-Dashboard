@@ -6,7 +6,6 @@ export default function AgendaList({ agendas, onEditClick }) {
 
     return (
         <div className="flex flex-col w-full h-full">
-            {/* Container Utama */}
             <div className="bg-white flex flex-col grow rounded-lg shadow-sm border border-gray-200 overflow-hidden">
                 
                 {/* Header */}

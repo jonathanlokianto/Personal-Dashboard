@@ -7,7 +7,6 @@ export default function Mp3Downloader({ downloadHistory }) {
     const downloadAreaRef = useRef(null);
     const { Mp3Downloader = {} } = usePage().props;
     const isDownloadReady = !!Mp3Downloader?.download_url;
-    // const [isDownloadReady, setDownloadReady] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -27,33 +26,12 @@ export default function Mp3Downloader({ downloadHistory }) {
         }
     }, [Mp3Downloader]);
 
-    // useEffect(()=> {
-    //     const observer = new IntersectionObserver(
-    //         ([entry]) => {
-    //             setDownloadReady(entry.isIntersecting);
-    //         }, {treshold:0.1}
-    //     );
-    //     if(downloadAreaRef.current) {
-    //         observer.observe(downloadAreaRef.current)
-    //     }
-
-    //     return ()=> {
-    //         if(downloadAreaRef.current){
-    //             observer.unobserve(downloadAreaRef.current);
-    //         }
-    //     }
-
-    // }, []);
-
     return (
         <div className="bg-white flex flex-col w-full max-w-3xl mx-auto rounded-2xl shadow-sm hover:shadow-md border border-gray-200 transition-all duration-300 overflow-hidden">
             <form onSubmit={handleSubmit}>
-                {/* Header Form */}
                 <div className="bg-gray-50 flex flex-col w-full items-center py-8 px-6 border-b border-gray-100 relative overflow-hidden">
-                    {/* Aksen Latar Belakang Lingkaran Halus */}
                     <div className="absolute top-0 right-0 -mt-10 -mr-10 w-32 h-32 bg-yellow-200/40 rounded-full blur-2xl pointer-events-none"></div>
 
-                    {/* Ikon Musik */}
                     <div className="flex items-center justify-center p-3 bg-yellow-100 rounded-full mb-3 z-10 shadow-inner border border-yellow-200/50">
                         <svg
                             className="w-6 h-6 text-yellow-600"
@@ -80,9 +58,7 @@ export default function Mp3Downloader({ downloadHistory }) {
                     </p>
                 </div>
 
-                {/* Bagian Input & Tombol */}
                 <div className="flex flex-col sm:flex-row gap-4 p-6 md:p-8 bg-white z-10">
-                    {/* Wrapper Input */}
                     <div className="relative grow">
                         <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                             <svg
@@ -119,62 +95,14 @@ export default function Mp3Downloader({ downloadHistory }) {
                         </div>
                     </div>
 
-                    {/* Tombol Konversi */}
                     <button
                         type="submit"
                         disabled={processing}
-                        className="flex items-center justify-center 
-                                gap-2 px-8 py-3.5 
-                                bg-linear-to-r from-yellow-500 to-amber-600 
-                                hover:from-yellow-600 hover:to-amber-700 
-                                text-white font-bold 
-                                rounded-xl shadow-md 
-                                transition-all 
-                                active:scale-95 shrink-0
-                                disabled:opacity-50 disabled:cursor-not-allowed
-                            "
+                        className="flex items-center justify-center gap-2 px-8 py-3.5 bg-linear-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-white font-bold rounded-xl shadow-md transition-all active:scale-95 shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {processing ? (
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 200 200"
-                                className="h-5 w-5 text-white"
-                            >
-                                <path
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="15"
-                                    transform-origin="center"
-                                    d="m148 84.7 13.8-8-10-17.3-13.8 8a50 50 0 0 0-27.4-15.9v-16h-20v16A50 50 0 0 0 63 67.4l-13.8-8-10 17.3 13.8 8a50 50 0 0 0 0 31.7l-13.8 8 10 17.3 13.8-8a50 50 0 0 0 27.5 15.9v16h20v-16a50 50 0 0 0 27.4-15.9l13.8 8 10-17.3-13.8-8a50 50 0 0 0 0-31.7Zm-47.5 50.8a35 35 0 1 1 0-70 35 35 0 0 1 0 70Z"
-                                >
-                                    <animateTransform
-                                        type="rotate"
-                                        attributeName="transform"
-                                        calcMode="spline"
-                                        dur="2"
-                                        values="0;120"
-                                        keyTimes="0;1"
-                                        keySplines="0 0 1 1"
-                                        repeatCount="indefinite"
-                                    ></animateTransform>
-                                </path>
-                            </svg>
-                        ) : (
-                            <svg
-                                className="w-5 h-5 animate-bounce"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                                ></path>
-                            </svg>
-                        )}
+                            <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                        ) : null}
                         <span className="tracking-wide">CONVERT</span>
                     </button>
                 </div>
@@ -185,36 +113,16 @@ export default function Mp3Downloader({ downloadHistory }) {
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 200 200"
-                        className="w-30 h-30 text-amber-500"
+                        className="w-20 h-20 text-amber-500 animate-spin"
                     >
                         <path
                             fill="none"
                             stroke="currentColor"
-                            stroke-width="24"
-                            transform-origin="center"
+                            strokeWidth="24"
                             d="m148 84.7 13.8-8-10-17.3-13.8 8a50 50 0 0 0-27.4-15.9v-16h-20v16A50 50 0 0 0 63 67.4l-13.8-8-10 17.3 13.8 8a50 50 0 0 0 0 31.7l-13.8 8 10 17.3 13.8-8a50 50 0 0 0 27.5 15.9v16h20v-16a50 50 0 0 0 27.4-15.9l13.8 8 10-17.3-13.8-8a50 50 0 0 0 0-31.7Zm-47.5 50.8a35 35 0 1 1 0-70 35 35 0 0 1 0 70Z"
-                        >
-                            <animateTransform
-                                type="rotate"
-                                attributeName="transform"
-                                calcMode="spline"
-                                dur="2"
-                                values="0;120"
-                                keyTimes="0;1"
-                                keySplines="0 0 1 1"
-                                repeatCount="indefinite"
-                            ></animateTransform>
-                        </path>
+                        />
                     </svg>
-
-                    <h1
-                        className="text-lg sm:text-xl text-center
-                            text-amber-500 
-                            font-extrabold 
-                            tracking-wide 
-                            line-clamp-2 
-                            px-2"
-                    >
+                    <h1 className="text-lg sm:text-xl text-center text-amber-500 font-extrabold tracking-wide px-2">
                         Please wait for a moment
                         <span className="animate-pulse">...</span>
                     </h1>
@@ -226,26 +134,18 @@ export default function Mp3Downloader({ downloadHistory }) {
                     <DownloadModal
                         downloadedData={Mp3Downloader}
                         isProcessing={processing}
-                    ></DownloadModal>
+                    />
                 </div>
             )}
 
             <hr className="w-1/2 mx-auto border-t-2 border-gray-500 my-10" />
+            
             <div>
-                <h1
-                    className="text-lg sm:text-2xl 
-                            font-black 
-                            tracking-widest text-gray-800 drop-shadow-sm uppercase text-center z-10"
-                >
+                <h1 className="text-lg sm:text-2xl font-black tracking-widest text-gray-800 drop-shadow-sm uppercase text-center z-10">
                     HISTORY
                 </h1>
 
-                <div
-                    className="
-                            flex grow flex-col
-                            gap-10 p-5 mb-10
-                "
-                >
+                <div className="flex grow flex-col gap-10 p-5 mb-10">
                     {!downloadHistory || downloadHistory.length === 0 ? (
                         <div className="flex flex-col items-center justify-center p-10 bg-gray-50 rounded-2xl border border-dashed border-gray-300 mx-6">
                             <svg

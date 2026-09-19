@@ -8,7 +8,6 @@ export default function DownloadModal({ downloadedData }) {
                 text-gray-800 drop-shadow-sm uppercase    
                 text-center z-10"
             >
-                {/* SVG Kiri */}
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -26,7 +25,6 @@ export default function DownloadModal({ downloadedData }) {
 
                 <span>YOUR DOWNLOAD IS HERE</span>
 
-                {/* SVG Kanan */}
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -43,7 +41,6 @@ export default function DownloadModal({ downloadedData }) {
                 </svg>
             </h1>
 
-            {/* FILE DOWNLOAD PREVIEW */}
 
             <div className="flex flex-col gap-6 items-center w-full max-w-md mx-auto p-4">
                 <div

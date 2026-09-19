@@ -47,9 +47,8 @@ export default function Navbar() {
         <>
             <nav className="relative bg-blue-800">
                 <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-                    {/* 1. Baris Utama (Flex Container) */}
                     <div className="relative flex h-16 items-center justify-between">
-                        {/* Bagian Kiri: Logo & Menu */}
+
                         <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                             <div className="flex shrink-0 items-center">
                                 <img
@@ -59,7 +58,6 @@ export default function Navbar() {
                                 />
                             </div>
 
-                            {/* Menu Desktop */}
                             <div className="hidden sm:ml-6 sm:block">
                                 <div className="flex space-x-4">
                                     <NavLink
@@ -80,12 +78,9 @@ export default function Navbar() {
                                     >
                                         MP3 Downloader
                                     </NavLink>
-
-                                    {/* <NavLink href="/test-flash">TEST</NavLink> */}
                                 </div>
                             </div>
                         </div>{" "}
-                        {/* <-- Penutup Bagian Kiri */}
 
                     </div>
                 </div>

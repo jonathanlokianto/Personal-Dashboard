@@ -4,6 +4,7 @@ import Footer from "../Components/Footer";
 import { usePage } from "@inertiajs/react";
 import { useState } from "react";
 import FlashNotification from "../Components/FlashNotification";
+import About from '../Components/About';
 
 export default function MainLayout({ children }) {
     return (
@@ -19,6 +20,7 @@ export default function MainLayout({ children }) {
                         </div>
                     </div>
                 </main>
+                <About />
                 <Footer />
             </div>
         </>

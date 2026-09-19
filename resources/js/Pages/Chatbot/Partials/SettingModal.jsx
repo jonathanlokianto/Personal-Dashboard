@@ -1,7 +1,6 @@
 import { router, useForm, usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 
-// Jangan lupa menangkap props onClose dari Index.jsx
 export default function SettingModal({ innerModalAreaRef, onClose }) {
     const { savedPresets, activePreset } = usePage().props;
     const [isCreateNewPreset, setIsCreateNewPreset] = useState(false);
@@ -103,9 +102,7 @@ export default function SettingModal({ innerModalAreaRef, onClose }) {
                     onSubmit={handleSubmitPreset}
                     className="flex flex-col grow overflow-hidden"
                 >
-                    {/* Area yang bisa di-scroll */}
                     <div className="flex flex-col gap-5 px-8 pb-6 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent">
-                        {/* `Preset Dropdown` */}
                         <label className="flex flex-col gap-1.5">
                             <el-dropdown className="inline-block">
                                 <button
@@ -220,7 +217,6 @@ export default function SettingModal({ innerModalAreaRef, onClose }) {
                             </el-dropdown>
                         </label>
 
-                        {/* Input 1: Preset Name */}
                         <label className="flex flex-col gap-1.5">
                             <span className="text-sm font-semibold text-gray-300">
                                 Preset Name
@@ -236,7 +232,6 @@ export default function SettingModal({ innerModalAreaRef, onClose }) {
                             />
                         </label>
 
-                        {/* Input 2: Model Name */}
                         <label className="flex flex-col gap-1.5">
                             <span className="text-sm font-semibold text-gray-300">
                                 Model Name
@@ -252,7 +247,6 @@ export default function SettingModal({ innerModalAreaRef, onClose }) {
                             />
                         </label>
 
-                        {/* Input 3: Proxy URL */}
                         <label className="flex flex-col gap-1.5">
                             <span className="text-sm font-semibold text-gray-300">
                                 Proxy URL
@@ -268,7 +262,6 @@ export default function SettingModal({ innerModalAreaRef, onClose }) {
                             />
                         </label>
 
-                        {/* Input 4: API Key */}
                         <label className="flex flex-col gap-1.5">
                             <span className="text-sm font-semibold text-gray-300">
                                 API Key
@@ -284,7 +277,6 @@ export default function SettingModal({ innerModalAreaRef, onClose }) {
                             />
                         </label>
 
-                        {/* Input 5: Custom Prompt */}
                         <label className="flex flex-col gap-1.5">
                             <span className="text-sm font-semibold text-gray-300">
                                 Custom Prompt (System)
@@ -304,7 +296,7 @@ export default function SettingModal({ innerModalAreaRef, onClose }) {
                         </label>
                     </div>
 
-                    {/* START FOOTER (Sticky Tombol Save) */}
+                    {/* START FOOTER */}
                     <div className="p-4 bg-gray-800 border-t border-gray-700 flex justify-end gap-3 mt-auto">
                         <button
                             type="button"

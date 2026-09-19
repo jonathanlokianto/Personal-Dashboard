@@ -1,13 +1,10 @@
 export default function Header() {
     return (
         <header className="w-full bg-gradient-to-r from-blue-700 to-indigo-800 h-20 shadow-lg flex items-center justify-between px-6 sm:px-12 text-white relative overflow-hidden">
-            {/* Aksen Latar Belakang (Glow) */}
             <div className="absolute -top-12 -right-12 w-48 h-48 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
             <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-blue-400/20 rounded-full blur-2xl pointer-events-none"></div>
 
-            {/* Bagian Kiri: Logo dan Judul */}
             <div className="flex items-center gap-4 z-10">
-                {/* Logo SVG Modern (Glassmorphism) */}
                 <div className="flex items-center justify-center bg-white/10 p-2.5 rounded-xl backdrop-blur-md border border-white/20 shadow-inner group transition-all duration-300 hover:scale-105 hover:bg-white/20 cursor-default">
                     <svg
                         className="w-7 h-7 text-blue-100 group-hover:text-white transition-colors"
@@ -31,13 +28,11 @@ export default function Header() {
                     </svg>
                 </div>
                 
-                {/* Tipografi Judul */}
                 <h1 className="text-xl sm:text-2xl font-black tracking-tight drop-shadow-md">
-                    <span className="text-blue-200">MY</span> PERSONAL PROJECT
+                    <span className="text-blue-200">PERSONAL</span> DASHBOARD
                 </h1>
             </div>
 
-            {/* Indikator Status */}
             <div className="hidden sm:flex items-center gap-3 text-xs sm:text-sm font-medium text-blue-100/90 z-10 bg-black/15 px-4 py-2 rounded-full border border-black/10 backdrop-blur-sm shadow-inner cursor-default">
                 <span className="relative flex h-2.5 w-2.5">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>

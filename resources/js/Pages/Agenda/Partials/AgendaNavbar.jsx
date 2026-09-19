@@ -40,7 +40,6 @@ export default function SubNavbar({ onSearch, searchFilters, tagList }) {
             onSubmit={handlePreventSubmit}
             className="flex flex-col md:flex-row md:items-end gap-4 md:gap-6 bg-white p-5 w-full shadow-sm border-b border-gray-100"
         >
-            {/* 1. Bagian Include */}
             <div className="relative flex flex-col w-full md:w-48 lg:w-56 shrink-0">
                 <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-1.5 pl-1">
                     Include
@@ -88,7 +87,6 @@ export default function SubNavbar({ onSearch, searchFilters, tagList }) {
                 )}
             </div>
 
-            {/* 2. Bagian Exclude */}
             <div className="relative flex flex-col w-full md:w-48 lg:w-56 shrink-0">
                 <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-1.5 pl-1">
                     Exclude
@@ -134,12 +132,10 @@ export default function SubNavbar({ onSearch, searchFilters, tagList }) {
                 )}
             </div>
 
-            {/* 3. Bagian Search (Paling lebar) */}
             <div className="flex flex-col grow w-full">
                 <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-1.5 pl-1">
                     Search
                 </label>
-                {/* Input & Button Digabung Rapat (Attached) */}
                 <div className="flex w-full rounded-lg shadow-sm">
                     <input
                         value={search}

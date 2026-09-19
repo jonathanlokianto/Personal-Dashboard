@@ -19,6 +19,7 @@ export default function Index({ chatHistory }) {
     const [localChats, setLocalChats] = useState(chatHistory);
     const [parsedStreamText, setParsedStreamText] = useState("");
     const [notifications, setNotifications] = useState([]);
+    const [isWaitingSync, setIsWaitingSync] = useState(false);
 
     const { activePreset } = usePage().props;
 
@@ -83,8 +84,6 @@ export default function Index({ chatHistory }) {
             created_at: new Date().toISOString(),
         };
 
-        // setLocalChats((prevChats) => [...prevChats, tempUserMessage]);
-
         setLocalChats((prevChats) => {
             let updatedChats = [...prevChats];
             if (restarted && restartedChatId) {
@@ -98,7 +97,6 @@ export default function Index({ chatHistory }) {
             return [...updatedChats, tempUserMessage];
         });
 
-        // 1. Jalankan koneksi streaming ke backend
         send({
             content: [
                 {
@@ -109,24 +107,28 @@ export default function Index({ chatHistory }) {
             ],
         });
 
-        // 2. Cukup scroll ke bawah.
         setTimeout(() => {
             scrollToBottom();
         }, 100);
     };
 
-    // 3. Tarik balasan utuh AI dari database setelah proses streaming selesai
     useEffect(() => {
         if (!isStreaming && data) {
-            const timer = setTimeout(() => {
-                router.reload({
-                    only: ["chatHistory"],
-                    preserveScrolls: true,
-                    preserveState: true,
-                });
-                scrollToBottom();
-            }, 500);
-            return () => clearTimeout(timer);
+            setIsWaitingSync(true);
+
+            router.reload({
+                only: ["chatHistory"],
+                preserveScrolls: true,
+                preserveState: true,
+                onSuccess: () => {
+                    setIsWaitingSync(false);
+                    setParsedStreamText("");
+                    scrollToBottom();
+                },
+                onError: () => {
+                    setIsWaitingSync(false);
+                },
+            });
         }
     }, [isStreaming]);
 
@@ -203,6 +205,8 @@ export default function Index({ chatHistory }) {
             window.confirm("Do you really want to clear this chat's history?")
         ) {
             router.delete(route("chatbot.clear"), {
+                preserveScrolls: true,
+                preserveState,
                 onSuccess: () => {
                     createNotification("The chat history has been cleared");
                 },
@@ -238,7 +242,7 @@ export default function Index({ chatHistory }) {
             }, 50);
             return () => clearTimeout(timeOut);
         }
-    }, [localChats]); // Pastikan memantau localChats, bukan chatHistory
+    }, [localChats]);
 
     useEffect(() => {
         if (window.Echo) {
@@ -285,7 +289,6 @@ export default function Index({ chatHistory }) {
                 id="chatArea"
                 className="flex flex-col grow overflow-y-auto gap-4 p-4 md:p-6 scroll-smooth scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent"
             >
-                {/* PERBAIKAN UTAMA: Render 'localChats', BUKAN 'chatHistory' */}
                 {localChats?.length > 0 ? (
                     localChats.map((chat, index) => {
                         const isLatestMessage = index === localChats.length - 1;
@@ -311,7 +314,7 @@ export default function Index({ chatHistory }) {
                     </div>
                 )}
 
-                {(isStreaming || isFetching) && (
+                {(isStreaming || isFetching || isWaitingSync) && (
                     <div className="flex w-full mt-2 space-x-3 max-w-2xl">
                         <ChatBubbleBase
                             chatData={{
@@ -351,7 +354,7 @@ export default function Index({ chatHistory }) {
             )}
 
             <div className="flex flex-col bg-gray-800 border-t border-gray-700/50">
-                <div className="flex justify-between px-6 pt-3 -mb-1">
+                <div className="flex justify-between px-6 pt-3 -mb-1 caret-transparent">
                     <button
                         onClick={() => setIsModalOpen(true)}
                         className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-gray-400 bg-gray-700/30 hover:bg-red-500/10 hover:text-red-400 rounded-lg transition-all duration-300 border border-transparent hover:border-red-500/20 group"

@@ -52,10 +52,7 @@ export default function AgendaBubble({ agenda, onEditClick }) {
 
     return (
         <div className="w-full">
-            {/* Card Utama (Padding dan border-radius diperkecil) */}
             <div className="bg-[#455a73] relative flex flex-col p-4 md:p-5 text-white rounded-xl shadow-sm border border-[#3b4d63] transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 group">
-                
-                {/* Tombol Suspended (Lock/Unlock) - Absolute Top Right (Ukuran diperkecil) */}
                 <div className="absolute top-4 right-4 z-10">
                     <button
                         onClick={() => {
@@ -82,13 +79,11 @@ export default function AgendaBubble({ agenda, onEditClick }) {
                     </button>
                 </div>
 
-                {/* Wrapper Konten (Meredup jika Suspended) */}
                 <div
                     className={`flex flex-col grow transition-all duration-300 ${
                         agenda.isSuspended ? "opacity-50 grayscale-[30%] pointer-events-none" : ""
                     }`}
                 >
-                    {/* Header Konten (Margin bawah & Font size diperkecil) */}
                     <div className="mb-3 pr-10">
                         <h1 className="text-lg font-bold tracking-wide text-white leading-snug">
                             {agenda.content}
@@ -129,10 +124,8 @@ export default function AgendaBubble({ agenda, onEditClick }) {
                         )}
                     </div>
 
-                    {/* Footer: Tags dan Tombol Aksi (Jarak antar elemen dirapatkan) */}
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mt-auto pt-3 border-t border-white/10">
                         
-                        {/* Wrapper Tags (Ukuran tag diperkecil) */}
                         <div className="flex flex-wrap gap-1.5">
                             {agenda.tags?.map((tag) => (
                                 <span 
@@ -147,7 +140,6 @@ export default function AgendaBubble({ agenda, onEditClick }) {
                             )}
                         </div>
 
-                        {/* Wrapper Tombol Aksi (Ukuran tombol diperkecil) */}
                         <div className="flex items-center gap-2 w-full sm:w-auto">
                             <button
                                 onClick={handleEdit}

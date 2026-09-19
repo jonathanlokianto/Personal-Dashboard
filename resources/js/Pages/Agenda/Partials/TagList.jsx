@@ -28,22 +28,18 @@ export default function TagList({ availableTags, onCancel }) {
 
     return (
         <div className="flex flex-col w-full h-full relative">
-            {/* Container Utama dengan efek mengecil/redup saat modal terbuka */}
             <div
                 className={`bg-white flex flex-col grow rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-300 
                 ${isModalOpen ? "opacity-50 pointer-events-none scale-[0.98]" : "scale-100"}`}
             >
-                {/* Header */}
                 <div className="flex justify-center items-center p-6 bg-gray-50 border-b border-gray-100">
                     <h1 className="text-xl font-extrabold tracking-widest text-gray-800 uppercase">
                         TAG LIST
                     </h1>
                 </div>
 
-                {/* Body Content */}
                 <div className="p-6 md:p-8 flex flex-col grow">
                     
-                    {/* Area Tags & Add Button */}
                     <div className="flex flex-wrap w-full gap-4 items-center min-h-[5rem]">
                         {availableTags?.length > 0 ? (
                             availableTags.map((tag) => (
@@ -54,7 +50,6 @@ export default function TagList({ availableTags, onCancel }) {
                                 />
                             ))
                         ) : (
-                            /* Desain Empty State Baru: Kotak dashed sejajar dengan tombol + */
                             <div className="flex items-center justify-center bg-gray-50 border border-dashed border-gray-300 rounded-lg px-6 py-2.5 h-10">
                                 <span className="text-sm font-semibold tracking-wide text-gray-400">
                                     TAG LIST IS EMPTY
@@ -62,7 +57,6 @@ export default function TagList({ availableTags, onCancel }) {
                             </div>
                         )}
 
-                        {/* Tombol Add (+) Modern */}
                         <button
                             type="button"
                             onClick={() => handleOpenTagEditor(null)}
@@ -77,7 +71,6 @@ export default function TagList({ availableTags, onCancel }) {
                         </button>
                     </div>
 
-                    {/* Footer / Back Button */}
                     <div className="flex justify-center items-center mt-auto pt-12 pb-2">
                         <button
                             type="button"
@@ -91,7 +84,6 @@ export default function TagList({ availableTags, onCancel }) {
                 </div>
             </div>
 
-            {/* Modal Overlay / Backdrop */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity">
                     <TagCreate

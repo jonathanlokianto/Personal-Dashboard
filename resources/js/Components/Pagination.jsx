@@ -39,7 +39,7 @@ export default function Pagination({ links }) {
                 return (
                     <Link
                         key={index}
-                        href={relativeUrl} // <-- Gunakan relative URL di sini
+                        href={relativeUrl}
                         className={className}
                         preserveScroll
                     >

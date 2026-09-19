@@ -13,6 +13,7 @@
         "inertiajs/inertia-laravel": "*",
         "laravel/framework": "^13.0",
         "laravel/reverb": "^1.0",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^3.0",
         "openai-php/laravel": "*",
         "prism-php/prism": "^0.100.1",

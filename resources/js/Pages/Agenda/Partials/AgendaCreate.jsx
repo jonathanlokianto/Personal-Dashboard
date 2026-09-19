@@ -55,19 +55,16 @@ export default function AgendaCreate({
 
     return (
         <div className="bg-white flex flex-col grow rounded-xl shadow-sm border border-gray-200 overflow-hidden w-full">
-            {/* Header Form */}
             <div className="flex justify-center items-center p-6 bg-gray-50 border-b border-gray-100">
                 <h1 className="text-xl font-extrabold tracking-widest text-gray-800 uppercase">
                     {isEdit ? "EDIT " : "CREATE NEW "}AGENDA
                 </h1>
             </div>
 
-            {/* Form Body */}
             <form
                 className="p-6 md:p-8 flex flex-col gap-6"
                 onSubmit={handleSubmit}
             >
-                {/* Input Agenda Content */}
                 <div className="flex flex-col gap-2">
                     <label
                         htmlFor="content"
@@ -92,7 +89,6 @@ export default function AgendaCreate({
                     )}
                 </div>
 
-                {/* Input Note */}
                 <div className="flex flex-col gap-2">
                     <label
                         htmlFor="note"
@@ -119,7 +115,6 @@ export default function AgendaCreate({
                     )}
                 </div>
 
-                {/* Current Progress */}
                 <div className="flex flex-col gap-3">
                     <label className="text-sm font-semibold text-gray-700 flex items-center justify-between">
                         <span>Current Progress</span>
@@ -142,7 +137,6 @@ export default function AgendaCreate({
                     )}
                 </div>
 
-                {/* Is Suspended? (Modern UI Toggle Switch) */}
                 <div className="flex flex-col gap-2">
                     <span className="text-sm font-semibold text-gray-700">Agenda Status</span>
                     <label
@@ -158,7 +152,6 @@ export default function AgendaCreate({
                                 setData("isSuspended", e.target.checked)
                             }
                         />
-                        {/* Track & Thumb */}
                         <div className="w-11 h-6 bg-green-500 peer-focus:outline-none rounded-full peer 
                                       peer-checked:after:translate-x-full peer-checked:after:border-white 
                                       after:content-[''] after:absolute after:top-[2px] after:left-[2px] 
@@ -180,7 +173,6 @@ export default function AgendaCreate({
                     )}
                 </div>
 
-                {/* Add Tags */}
                 <div className="flex flex-col gap-2 border-t border-gray-100 pt-4">
                     <label className="text-sm font-semibold text-gray-700 flex items-center justify-between">
                         <span>Tags</span>

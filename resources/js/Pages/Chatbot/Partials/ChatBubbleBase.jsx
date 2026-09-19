@@ -18,13 +18,10 @@ export default function ChatBubbleBase({ chatData, modelName, isLatest, isLoadin
                 isUser ? "self-end items-end" : "self-start items-start"
             }`}
         >
-            {/* --- NAMA PENGIRIM (Di Luar Bubble) --- */}
             <span className="text-xs text-gray-400 font-medium px-2 mb-1 capitalize tracking-wide">
                 {isUser ? "You" : shortModelName}
-                {/* Ubah chatRole di atas jika Anda ingin mengambil nama spesifik dari chatData.name dll */}
             </span>
 
-            {/* --- CHAT BUBBLE --- */}
             <div
                 className={`flex wrap-break-words rounded-2xl px-5 py-2.5 text-white shadow-md ${
                     isUser

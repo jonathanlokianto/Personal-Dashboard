@@ -37,9 +37,17 @@ class Mp3DownloaderController extends Controller
         ]);
 
         $url = $request->url;
-        $ytDlpPath = storage_path('app/bin/yt-dlp_linux');
-        $ffmpegPath = storage_path('app/bin');
 
+        $isWindows = PHP_OS_FAMILY === 'Windows';        
+
+        $ytDlpBinary = $isWindows ? 'yt-dlp.exe' : 'yt-dlp_linux';
+        $ytDlpPath = storage_path('app/bin/' . $ytDlpBinary);
+
+        $ffmpegPath = storage_path('app/bin');
+        $systemPath = getenv('PATH');
+        if (!$isWindows) {
+            $systemPath .= ':/usr/bin:/usr/local/bin';
+        }
 
         $tempDir = storage_path('app/temp');
         if(!file_exists($tempDir)){
@@ -51,7 +59,8 @@ class Mp3DownloaderController extends Controller
                 'TMP'  => $tempDir,
                 'SystemRoot'  => 'C:\Windows',
                 'SystemDrive' => 'C:',
-                'PATH' => getenv('PATH'),
+                // 'PATH' => getenv('PATH'),
+                'PATH'        => $systemPath,
         ];
 
         try{
@@ -82,7 +91,10 @@ class Mp3DownloaderController extends Controller
 
             $result = Process::timeout(300)->env($env)->run([
                 $ytDlpPath,
-                '--extractor-args', 'youtube:client=android',
+                '--js-runtimes', 'node',
+                '--ffmpeg-location', $ffmpegPath,
+                '--extractor-args', 'youtube:player_client=web,default',
+                '--rm-cache-dir',
                 '--dump-json',
                 '--no-simulate',
                 '--no-progress',
@@ -90,7 +102,6 @@ class Mp3DownloaderController extends Controller
                 '-f', 'ba',
                 '-x',
                 '--audio-format', 'mp3',
-                // '--ffmpeg-location', $ffmpegPath,
                 '-o', $outputPath,
                 '--no-playlist',
                 $url

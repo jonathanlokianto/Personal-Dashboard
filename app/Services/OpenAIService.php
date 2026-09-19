@@ -22,22 +22,15 @@ class OpenAIService
             $customPrompt = $settings ?-> model_custom_prompt ?? config('openai.model_custom_prompt');
 
             $isSuccess = true;
-            
-            // 1. Ambil 10 pesan terakhir dari database agar AI punya "ingatan"
-            // (Termasuk pesan user yang baru saja di-save di Controller)
             $history = Message::latest()->take(10)->get()->reverse();
 
-            // 2. Susun format pesan untuk OpenAI
             $openAIMessages = [];
-
-            // Tambahkan "Ruh/Sikap" AI (System Prompt)
             $openAIMessages[] = [
                 'role' => 'system',
                 'content' => 'Provide detailed, structured, and analytical answers. Do not simply respond with a brief greeting.
 .'
             ];
 
-            // Masukkan riwayat chat ke dalam payload
             foreach ($history as $chat) {
                 $openAIMessages[] = [
                     'role' => $chat->role,
@@ -47,7 +40,6 @@ class OpenAIService
             
             $fullResponse = '';
 
-            // 3. Eksekusi API
             if(app()->environment('testing') || ! config('openai.api_key')){
                 $fullResponse = 'This is a test response.';
                 echo $fullResponse;
@@ -68,7 +60,6 @@ class OpenAIService
                         'messages' => $openAIMessages,
                     ]);
 
-                    // Looping chunk stream
                     foreach($stream as $response){
                         $chunk = $response->choices[0]->delta->content;
                         if ($chunk !== null) {
@@ -99,7 +90,6 @@ class OpenAIService
                 }
             }
 
-            // 4. Simpan balasan AI ke Database
             if($fullResponse && $isSuccess){
                 Message::create([            
                     'role' => 'assistant',

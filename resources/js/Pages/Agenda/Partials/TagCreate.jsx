@@ -79,7 +79,6 @@ export default function TagCreate({ tagData = null, onExit }) {
 
                 {/* Footer Buttons */}
                 <div className="flex justify-between items-center mt-2 pt-4 border-t border-gray-100">
-                    {/* Sisi Kiri: Tombol Delete (Hanya muncul jika mode Edit) */}
                     <div>
                         {isEdit && (
                             <button
@@ -93,7 +92,6 @@ export default function TagCreate({ tagData = null, onExit }) {
                         )}
                     </div>
 
-                    {/* Sisi Kanan: Cancel & Submit */}
                     <div className="flex gap-3">
                         <button
                             type="button"

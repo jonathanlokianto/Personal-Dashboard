@@ -46,6 +46,7 @@ export default function TypeBubble({
                 id="typeArea"
                 onSubmit={messageOnSend}
                 className="flex flex-row grow items-end px-2 py-2 gap-2"
+                disabled={isStreaming}
             >
                 <textarea
                     className="grow bg-transparent text-slate-100 placeholder-slate-400
@@ -57,7 +58,6 @@ export default function TypeBubble({
                     value={messageContent}
                     onChange={(e) => setMessageContent(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    disabled={isStreaming}
                 />
 
                 <button
