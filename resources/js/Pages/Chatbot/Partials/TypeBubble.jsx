@@ -7,6 +7,7 @@ export default function TypeBubble({
 }) {
     const [messageContent, setMessageContent] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
+
     const messageOnSend = async (e) => {
         e.preventDefault();
         if (!messageContent.trim() || isStreaming || isSubmitting) return;
@@ -35,24 +36,23 @@ export default function TypeBubble({
     return (
         <div
             id="typeBase"
-            className="flex sticky bottom-6 mx-auto 
-                       w-full h-fit
-                       bg-slate-700 border border-slate-700 
+            className="flex sticky bottom-6 mx-auto w-full h-fit
+                       bg-white border border-gray-200 
                        rounded-3xl shadow-xl overflow-hidden
                        transition-all duration-300 ease-in
-                       focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/50"
+                       focus-within:border-indigo-400 focus-within:ring-4 focus-within:ring-indigo-500/10"
         >
             <form
                 id="typeArea"
                 onSubmit={messageOnSend}
-                className="flex flex-row grow items-end px-2 py-2 gap-2"
+                className="flex flex-row grow items-end px-3 py-2 gap-2"
                 disabled={isStreaming}
             >
                 <textarea
-                    className="grow bg-transparent text-slate-100 placeholder-slate-400
-                               px-4 py-3 focus:outline-none resize-none
+                    className="grow bg-transparent text-gray-800 placeholder-gray-400
+                               px-3 py-3 focus:outline-none resize-none
                                min-h-12.5 max-h-[25vh] overflow-y-auto
-                               scrollbar-thin scrollbar-thumb-slate-600 scrollbar-track-transparent"
+                               scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
                     rows={1}
                     placeholder="Ask Anything ..."
                     value={messageContent}
@@ -62,14 +62,12 @@ export default function TypeBubble({
 
                 <button
                     type={isStreaming ? "button" : "submit"}
-                    disabled={
-                        (!isStreaming && !messageContent.trim()) || isSubmitting
-                    }
+                    disabled={(!isStreaming && !messageContent.trim()) || isSubmitting}
                     onClick={isStreaming ? onStopStream : undefined}
-                    className={`p-3 mr-1 mb-0.5 rounded-2xl text-white transition-all duration-300 shrink-0 shadow-md ${
+                    className={`p-3 mr-1 mb-1 rounded-2xl text-white transition-all duration-300 shrink-0 shadow-md ${
                         isStreaming
-                            ? "bg-red-500 hover:bg-red-600 cursor-pointer"
-                            : "bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                            ? "bg-red-500 hover:bg-red-600 cursor-pointer shadow-red-500/20"
+                            : "bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none shadow-indigo-600/20"
                     }`}
                     title={isStreaming ? "Stop Generating" : "Send Message"}
                 >
@@ -79,14 +77,7 @@ export default function TypeBubble({
                             fill="currentColor"
                             viewBox="0 0 24 24"
                         >
-                            <rect
-                                x="6"
-                                y="6"
-                                width="12"
-                                height="12"
-                                rx="2"
-                                ry="2"
-                            />
+                            <rect x="6" y="6" width="12" height="12" rx="2" ry="2" />
                         </svg>
                     ) : (
                         <svg

@@ -1,22 +1,19 @@
-export default function AgendaProgressBar({
-    currentProgress,
-    onProgressChange,
-}) {
+export default function AgendaProgressBar({ currentProgress, onProgressChange }) {
     const steps = [0, 25, 50, 75, 100];
 
     return (
-        <div className="flex gap-1.5 h-2.5 w-full items-center">
+        <div className="flex h-2.5 w-full bg-slate-100 rounded-full overflow-hidden border border-slate-200">
             {steps.map((step) => (
                 <button
                     key={step}
                     type="button"
                     onClick={() => onProgressChange(step)}
-                    className={`transition-all duration-300 flex grow h-full rounded-full cursor-pointer hover:-translate-y-0.5 ${
+                    className={`flex-1 transition-all duration-300 cursor-pointer border-r border-slate-200 last:border-0 ${
                         currentProgress >= step
-                            ? "bg-blue-500 shadow-[0_0_6px_rgba(59,130,246,0.4)] hover:bg-blue-400"
-                            : "bg-slate-400/40 hover:bg-slate-400/60"
+                            ? "bg-gradient-to-r from-blue-500 to-blue-600 hover:brightness-105"
+                            : "bg-transparent hover:bg-slate-200"
                     }`}
-                    title={`Set Progress to ${step}`}
+                    title={`Set Progress to ${step}%`}
                 />
             ))}
         </div>

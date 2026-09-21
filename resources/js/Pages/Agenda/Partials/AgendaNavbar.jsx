@@ -1,18 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function SubNavbar({ onSearch, searchFilters, tagList }) {
+export default function AgendaNavbar({ onSearch, searchFilters, tagList = [] }) {
     const [include, setInclude] = useState(searchFilters?.include || "");
     const [exclude, setExclude] = useState(searchFilters?.exclude || "");
     const [search, setSearch] = useState(searchFilters?.search || "");
 
-    const [isIncludeSuggestionOpen, setIsIncludeSuggestionOpen] =
-        useState(false);
-    const [isExcludeSuggestionOpen, setIsExcludeSuggestionOpen] =
-        useState(false);
+    const [isIncludeSuggestionOpen, setIsIncludeSuggestionOpen] = useState(false);
+    const [isExcludeSuggestionOpen, setIsExcludeSuggestionOpen] = useState(false);
 
     const initialRender = useRef(true);
-
-    const num = 10;
 
     useEffect(() => {
         if (initialRender.current) {
@@ -26,59 +22,54 @@ export default function SubNavbar({ onSearch, searchFilters, tagList }) {
         return () => clearTimeout(delaySearch);
     }, [include, exclude, search]);
 
-    // const handleSubmitButton = (e) => {
-    //     e.preventDefault();
-    //     onSearch?.({filters: { include, exclude, search }});
-
-    // };
-
     const handlePreventSubmit = (e) => e.preventDefault();
+
+    const filteredIncludeTags = tagList.filter((tag) =>
+        tag.tag_name.toLowerCase().includes(include.toLowerCase())
+    );
+    const filteredExcludeTags = tagList.filter((tag) =>
+        tag.tag_name.toLowerCase().includes(exclude.toLowerCase())
+    );
 
     return (
         <form
-            // onSubmit={handleSubmitButton}
             onSubmit={handlePreventSubmit}
-            className="flex flex-col md:flex-row md:items-end gap-4 md:gap-6 bg-white p-5 w-full shadow-sm border-b border-gray-100"
+            className="flex flex-col md:flex-row md:items-end gap-5 bg-white p-6 w-full rounded-2xl shadow-sm border border-slate-200 mb-6"
         >
-            <div className="relative flex flex-col w-full md:w-48 lg:w-56 shrink-0">
-                <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-1.5 pl-1">
-                    Include
+            {/* INCLUDE INPUT */}
+            <div className="relative flex flex-col w-full md:w-56 shrink-0">
+                <label className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-2 pl-1">
+                    Include Tags
                 </label>
                 <input
                     value={include}
                     type="text"
                     onChange={(e) => setInclude(e.target.value)}
                     onFocus={() => setIsIncludeSuggestionOpen(true)}
-                    onBlur={() =>
-                        setTimeout(() => setIsIncludeSuggestionOpen(false), 100)
-                    }
-                    placeholder="Include tags..."
-                    className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm transition-all 
-                               bg-gray-50/50 focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 
-                               outline-none placeholder:text-gray-400"
+                    onBlur={() => setIsIncludeSuggestionOpen(false)}
+                    placeholder="e.g. Urgent"
+                    className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm transition-all 
+                               bg-slate-50 text-slate-800 focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 
+                               outline-none placeholder:text-slate-400"
                 />
 
-                {isIncludeSuggestionOpen && (
+                {isIncludeSuggestionOpen && filteredIncludeTags.length > 0 && (
                     <div
-                        className="absolute z-50 top-full shadow-lg
-                                    w-full max-h-48
-                                    flex flex-col
-                                    outline-1 -outline-offset-1 outline-white/10
-                                    rounded-md
-                                    overflow-y-auto
-                                    "
+                        className="absolute z-50 top-full mt-2 shadow-lg
+                                   w-full max-h-48 flex flex-col
+                                   bg-white border border-slate-200
+                                   rounded-xl overflow-y-auto py-1"
                     >
-                        {tagList.map((tag) => (
+                        {filteredIncludeTags.map((tag) => (
                             <button
                                 key={tag.id}
-                                className="bg-gray-50
-                                    block
-                                    text-left 
-                                    p-2
-                                    transition transiton-all
-                                    hover:bg-gray-200
-                                    "
-                                onClick={()=>setInclude(tag.tag_name)}
+                                type="button"
+                                onMouseDown={(e) => e.preventDefault()}
+                                onClick={() => {
+                                    setInclude(tag.tag_name);
+                                    setIsIncludeSuggestionOpen(false);
+                                }}
+                                className="block w-full text-left px-4 py-2.5 text-sm text-slate-700 transition-colors hover:bg-slate-100 hover:text-slate-900"
                             >
                                 {tag.tag_name}
                             </button>
@@ -87,43 +78,40 @@ export default function SubNavbar({ onSearch, searchFilters, tagList }) {
                 )}
             </div>
 
-            <div className="relative flex flex-col w-full md:w-48 lg:w-56 shrink-0">
-                <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-1.5 pl-1">
-                    Exclude
+            {/* EXCLUDE INPUT */}
+            <div className="relative flex flex-col w-full md:w-56 shrink-0">
+                <label className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-2 pl-1">
+                    Exclude Tags
                 </label>
                 <input
                     value={exclude}
                     type="text"
-                    placeholder="Exclude tags..."
+                    placeholder="e.g. Completed"
                     onChange={(e) => setExclude(e.target.value)}
-                    onFocus={()=>setIsExcludeSuggestionOpen(true)}
-                    onBlur={()=>setTimeout(()=>setIsExcludeSuggestionOpen(false), 100)}
-                    className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm transition-all 
-                               bg-gray-50/50 focus:bg-white focus:ring-2 focus:ring-red-500/20 focus:border-red-500 
-                               outline-none placeholder:text-gray-400"
+                    onFocus={() => setIsExcludeSuggestionOpen(true)}
+                    onBlur={() => setIsExcludeSuggestionOpen(false)}
+                    className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm transition-all 
+                               bg-slate-50 text-slate-800 focus:bg-white focus:ring-2 focus:ring-red-500/20 focus:border-red-500 
+                               outline-none placeholder:text-slate-400"
                 />
 
-                {isExcludeSuggestionOpen && (
+                {isExcludeSuggestionOpen && filteredExcludeTags.length > 0 && (
                     <div
-                        className="absolute z-50 top-full shadow-lg
-                                    w-full max-h-48
-                                    flex flex-col
-                                    outline-1 -outline-offset-1 outline-white/10
-                                    rounded-md
-                                    overflow-y-auto
-                                    "
+                        className="absolute z-50 top-full mt-2 shadow-lg
+                                   w-full max-h-48 flex flex-col
+                                   bg-white border border-slate-200
+                                   rounded-xl overflow-y-auto py-1"
                     >
-                        {tagList.map((tag) => (
+                        {filteredExcludeTags.map((tag) => (
                             <button
                                 key={tag.id}
-                                className="bg-gray-50
-                                    block
-                                    text-left 
-                                    p-2
-                                    transition transiton-all
-                                    hover:bg-gray-200
-                                    "
-                                onClick={()=>setExclude(tag.tag_name)}
+                                type="button"
+                                onMouseDown={(e) => e.preventDefault()}
+                                onClick={() => {
+                                    setExclude(tag.tag_name);
+                                    setIsExcludeSuggestionOpen(false);
+                                }}
+                                className="block w-full text-left px-4 py-2.5 text-sm text-slate-700 transition-colors hover:bg-slate-100 hover:text-slate-900"
                             >
                                 {tag.tag_name}
                             </button>
@@ -132,27 +120,21 @@ export default function SubNavbar({ onSearch, searchFilters, tagList }) {
                 )}
             </div>
 
+            {/* SEARCH INPUT */}
             <div className="flex flex-col grow w-full">
-                <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-1.5 pl-1">
-                    Search
+                <label className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-2 pl-1">
+                    Search Agenda
                 </label>
-                <div className="flex w-full rounded-lg shadow-sm">
+                <div className="flex w-full">
                     <input
                         value={search}
                         type="search"
                         onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Search agenda..."
-                        className="flex-grow border border-gray-300 border-r-0 rounded-l-lg px-4 py-2.5 text-sm transition-all 
-                                   bg-gray-50/50 focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 
-                                   outline-none placeholder:text-gray-400 z-10"
+                        placeholder="Type keywords here..."
+                        className="grow border border-slate-200 rounded-xl px-4 py-3 text-sm transition-all 
+                                   bg-slate-50 text-slate-800 focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 
+                                   outline-none placeholder:text-slate-400"
                     />
-                    {/* <button
-                        type="submit"
-                        className="bg-blue-600 text-white font-semibold text-sm px-6 py-2.5 rounded-r-lg 
-                                   hover:bg-blue-700 transition-colors shrink-0 z-20 outline-none focus:ring-2 focus:ring-blue-500/50"
-                    > */}
-                    {/* Search */}
-                    {/* </button> */}
                 </div>
             </div>
         </form>

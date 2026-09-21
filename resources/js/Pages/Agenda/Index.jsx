@@ -43,7 +43,6 @@ export default function Index({ agendas, tags, filters }) {
                                 onEditClick={handleEditAgendaData}
                             />
                             <div className="pointer-events-none sticky bottom-6 flex justify-end items-center gap-4 pr-6 w-full z-50">
-                                {/* TOMBOL PLUS */}
                                 <button
                                     onClick={() =>
                                         setActiveAgendaPage("createAgendaState")
